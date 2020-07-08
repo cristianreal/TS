@@ -4,10 +4,10 @@ COPY . /server
 
 COPY package*.json ./
 
-RUN npm install
-
 EXPOSE 5000
 
 WORKDIR /server
+
+RUN npm install
 
 CMD [ "npm", "run", "dev" ]
