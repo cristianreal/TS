@@ -17,14 +17,14 @@ const mysql = require('mysql');
 // Database Connection for Development
 
 let connection = mysql.createConnection({
-  //host: process.env.DB_HOST,
-  host: '34.68.157.78',
-  //user: process.env.DB_USER,
-  user: 'root',
-  //password: process.env.DB_PASS,
-  password: '123456',
-  //database: process.env.DB_DATABASE
-  database: 'prueba'
+  host: process.env.DB_HOST,
+  //host: '34.68.157.78',
+  user: process.env.DB_USER,
+  //user: 'root',
+  password: process.env.DB_PASS,
+  //password: '123456',
+  database: process.env.DB_DATABASE
+  //database: 'prueba'
 });
 
   connection.connect(function(err) {
