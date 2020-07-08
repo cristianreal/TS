@@ -10,4 +10,4 @@ EXPOSE 5000
 
 WORKDIR /server
 
-CMD [ "node", "server.js" ]
+CMD [ "npm", "run", "dev" ]
