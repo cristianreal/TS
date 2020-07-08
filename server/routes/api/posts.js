@@ -9,7 +9,7 @@ const router = express.Router();
 
 //GET
 router.get('/', (req, res) => {
-    connection.query('SELECT name FROM prueba', function (err, rows, fields) {
+    connection.query('SELECT * FROM prueba', function (err, rows, fields) {
         if (err) throw res.send('error: ' + err)
         res.json(rows)
         //console.log('The solution is: ', rows[0].name)
