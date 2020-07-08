@@ -1,13 +1,13 @@
 FROM node:12
 
-COPY . /usr/src/app
-
-WORKDIR /usr/src/app
+COPY . /server
 
 COPY package*.json ./
 
 RUN npm install
 
 EXPOSE 5000
+
+WORKDIR /server
 
 CMD [ "node", "server.js" ]
