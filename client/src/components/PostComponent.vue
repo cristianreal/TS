@@ -15,7 +15,7 @@
         v-bind:item="post" 
         v-bind:index="index" 
         v-bind:key="post.id" 
-        v-on:dblclick="deletePost(post.id)">
+        @click="deletePost(post.id)">
       <p class="text"> {{post.name}} </p>
       </div>
     </div>
@@ -23,7 +23,12 @@
 </template>
 
 <script>
-import PostService from '../PostService'
+import axios from 'axios';
+const _IP = "34.69.42.189";
+const _PORT = "5000";
+const _PATH = "/api/posts/"
+
+const url = "http://"+ _IP + ":" + _PORT + _PATH
 export default {
   name: 'PostComponent',
   data() {
@@ -33,23 +38,39 @@ export default {
       text: ''
     }
   },
-  async created() {
-    try{
-      this.posts = await PostService.getPosts();
-    }catch(err){
-      this.error = err.message;
-    }
+  mounted() {
+    this.getPosts()
   },
   methods: {
-    async createPost(){
-      await PostService.insertPost(this.text);
-      this.posts = await PostService.getPosts();
+
+    getPosts(){
+      axios.get(url).then(
+        result => {
+          this.posts = result.data
+        }, error => {
+          console.error(error)
+        }
+      )        
     },
-    async deletePost(id){
-      await PostService.deletePost(id);
-      this.posts = await PostService.getPosts();
-    
-  }
+
+    createPost(){
+      axios.post(url, { name: this.text}).then(() => {
+        this.text = ''
+        this.getPosts()
+      }).catch( (error) => {
+        console.error(error)
+      })
+    },
+
+    deletePost(id){
+      
+      axios.delete(`${url}${id}`).then(() => {
+        this.getPosts()
+      }).catch( (error) => {
+        console.error(error)
+      })
+      
+    }
 }
 };
 </script>
